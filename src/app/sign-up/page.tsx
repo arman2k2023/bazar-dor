@@ -35,6 +35,7 @@ export default function SignUpPage() {
             });
 
             if (error) {
+                console.error("Sign Up API error:", error);
                 toast.error(error.message || "অ্যাকাউন্ট তৈরি করা যায়নি");
                 return;
             }
@@ -42,8 +43,14 @@ export default function SignUpPage() {
             toast.success("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
             router.push("/");
             router.refresh();
-        } catch {
-            toast.error("সমস্যা হয়েছে। আবার চেষ্টা করো।");
+        } catch (error) {
+            console.error("Sign Up error:", error);
+
+            toast.error(
+                error instanceof Error
+                    ? error.message
+                    : "সমস্যা হয়েছে। আবার চেষ্টা করো।"
+            );
         } finally {
             setLoading(false);
         }
@@ -62,9 +69,13 @@ export default function SignUpPage() {
 
                 <form onSubmit={handleSignUp} className="space-y-5">
                     <div>
-                        <label htmlFor="name" className="mb-2 block text-sm font-medium">
+                        <label
+                            htmlFor="name"
+                            className="mb-2 block text-sm font-medium"
+                        >
                             তোমার নাম
                         </label>
+
                         <input
                             id="name"
                             type="text"
@@ -78,9 +89,13 @@ export default function SignUpPage() {
                     </div>
 
                     <div>
-                        <label htmlFor="email" className="mb-2 block text-sm font-medium">
+                        <label
+                            htmlFor="email"
+                            className="mb-2 block text-sm font-medium"
+                        >
                             ইমেইল
                         </label>
+
                         <input
                             id="email"
                             type="email"
@@ -94,9 +109,13 @@ export default function SignUpPage() {
                     </div>
 
                     <div>
-                        <label htmlFor="password" className="mb-2 block text-sm font-medium">
+                        <label
+                            htmlFor="password"
+                            className="mb-2 block text-sm font-medium"
+                        >
                             পাসওয়ার্ড
                         </label>
+
                         <input
                             id="password"
                             type="password"
@@ -115,7 +134,9 @@ export default function SignUpPage() {
                         disabled={loading}
                         className="w-full rounded-lg bg-green-700 px-4 py-3 font-semibold text-white transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                        {loading ? "অ্যাকাউন্ট তৈরি হচ্ছে..." : "Sign Up"}
+                        {loading
+                            ? "অ্যাকাউন্ট তৈরি হচ্ছে..."
+                            : "Sign Up"}
                     </button>
                 </form>
 
