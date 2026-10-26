@@ -3,6 +3,7 @@ import PriceTicker from "@/components/layout/PriceTicker";
 import HeroSection from "@/components/home/HeroSection";
 import ProductCard from "@/components/product/ProductCard";
 import { getProducts } from "@/lib/products";
+import ProductSearch from "@/components/product/ProductSearch";
 
 export default async function HomePage() {
     const products = await getProducts();
@@ -25,6 +26,8 @@ export default async function HomePage() {
                 <div className="mx-auto mt-8 max-w-7xl">
                     <HeroSection />
                 </div>
+                {/* Search Filter */}
+                <ProductSearch products={products} />
 
                 {/* Products with Increased Prices */}
                 {increasedProducts.length > 0 && (

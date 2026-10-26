@@ -13,3 +13,23 @@ export async function getProducts(): Promise<Product[]> {
 
     return data;
 }
+
+export async function getProductById(
+  id: string
+): Promise<Product | null> {
+  const response = await fetch(
+    `${API_ENDPOINTS.products}/${encodeURIComponent(id)}`
+  );
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  if (!response.ok) {
+    throw new Error("পণ্যের বিস্তারিত তথ্য লোড করা যায়নি");
+  }
+
+  const product: Product = await response.json();
+
+  return product;
+}
