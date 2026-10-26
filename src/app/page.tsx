@@ -1,7 +1,7 @@
 
-import Navbar from "@/components/layout/Navbar";
 import PriceTicker from "@/components/layout/PriceTicker";
 import HeroSection from "@/components/home/HeroSection";
+import ProductCard from "@/components/product/ProductCard";
 import { getProducts } from "@/lib/products";
 
 export default async function HomePage() {
@@ -17,9 +17,6 @@ export default async function HomePage() {
 
     return (
         <>
-            {/* Navbar */}
-            <Navbar />
-
             {/* Scrolling Price Ticker */}
             <PriceTicker />
 
@@ -118,79 +115,6 @@ export default async function HomePage() {
                     )}
                 </section>
             </main>
-
-            {/* Footer */}
-            <footer className="border-t border-green-100 bg-white px-5 py-8">
-                <div className="mx-auto max-w-7xl text-center">
-                    <p className="text-sm text-gray-500">
-                        © {new Date().getFullYear()} বাজার দর — সঠিক বাজারদর জানুন।
-                    </p>
-                </div>
-            </footer>
         </>
-    );
-}
-
-/* Product Card */
-import type { Product } from "@/types/product";
-
-function ProductCard({ product }: { product: Product }) {
-    const changeStyle =
-        product.change.dir === "up"
-            ? "bg-red-50 text-red-600"
-            : product.change.dir === "down"
-                ? "bg-green-50 text-green-700"
-                : "bg-gray-100 text-gray-600";
-
-    const changeIcon =
-        product.change.dir === "up"
-            ? "▲"
-            : product.change.dir === "down"
-                ? "▼"
-                : "—";
-
-    return (
-        <article className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md">
-            {/* Product Icon and Price Change */}
-            <div className="flex items-start justify-between gap-3">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-green-50 text-4xl">
-                    {product.image}
-                </div>
-
-                <span
-                    className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-bold ${changeStyle}`}
-                >
-                    {changeIcon} {Math.abs(product.change.pct)}%
-                </span>
-            </div>
-
-            {/* Product Information */}
-            <div className="mt-5">
-                <h3 className="text-lg font-bold text-gray-800">
-                    {product.nameBn}
-                </h3>
-
-                <p className="mt-1 text-sm text-gray-500">
-                    {product.categoryNameBn} · প্রতি {product.unit}
-                </p>
-            </div>
-
-            {/* Price Information */}
-            <div className="mt-5 flex items-end justify-between gap-3 border-t border-gray-100 pt-4">
-                <div>
-                    <p className="text-xs text-gray-500">আজকের দাম</p>
-                    <p className="mt-1 text-2xl font-extrabold text-green-700">
-                        ৳{product.today}
-                    </p>
-                </div>
-
-                <div className="text-right">
-                    <p className="text-xs text-gray-400">গতকালের দাম</p>
-                    <p className="mt-1 text-sm font-semibold text-gray-600">
-                        ৳{product.yesterday}
-                    </p>
-                </div>
-            </div>
-        </article>
     );
 }
